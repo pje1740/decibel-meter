@@ -1,4 +1,13 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { startRecording } from '@/utils/decibel';
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		if (browser) {
+			await startRecording();
+		}
+	});
 </script>
 
 <div class="wrapper">
