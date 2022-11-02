@@ -1,5 +1,6 @@
 <script lang="ts">
 	import SoundMeter from '@/components/SoundMeter.svelte';
+	import DecibelNumber from '@/components/DecibelNumber.svelte';
 
 	let isRecording = false;
 
@@ -11,6 +12,7 @@
 <main>
 	<h1>DECIBEL</h1>
 	<h1>METER</h1>
+	<DecibelNumber />
 	<SoundMeter />
 	<button class="main-button" on:click={toggleRecording}>{isRecording ? 'Stop' : 'Start'}</button>
 </main>

@@ -9,11 +9,10 @@
 		volume = value;
 	});
 
-	$: bottom = `${volume}px`;
+	$: bottom = `${volume * 1.5}px`;
 
 	const handleVolumeChange = (vol: number) => {
 		decibel.update(() => vol);
-		console.log(volume);
 	};
 
 	onMount(async () => {
