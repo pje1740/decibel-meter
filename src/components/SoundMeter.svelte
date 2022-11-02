@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { startRecording } from '@/utils/decibel';
-	import { onMount } from 'svelte';
-
 	import { decibel } from '@/states/decibel';
 	export let volume = 0;
 
@@ -10,14 +7,6 @@
 	});
 
 	$: bottom = `${volume * 1.5}px`;
-
-	const handleVolumeChange = (vol: number) => {
-		decibel.update(() => vol);
-	};
-
-	onMount(async () => {
-		await startRecording(handleVolumeChange);
-	});
 </script>
 
 <div class="wrapper">

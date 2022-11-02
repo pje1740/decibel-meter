@@ -1,11 +1,23 @@
 <script lang="ts">
 	import SoundMeter from '@/components/SoundMeter.svelte';
 	import DecibelNumber from '@/components/DecibelNumber.svelte';
+	import { startRecording, stopRecording } from '@/utils/decibel';
+	import { decibel } from '@/states/decibel';
 
 	let isRecording = false;
 
-	const toggleRecording = () => {
-		isRecording = !isRecording;
+	const handleVolumeChange = (vol: number) => {
+		decibel.update(() => vol);
+	};
+
+	const handleClickButton = () => {
+		if (isRecording) {
+			stopRecording();
+			isRecording = false;
+		} else {
+			startRecording(handleVolumeChange);
+			isRecording = true;
+		}
 	};
 </script>
 
@@ -14,7 +26,7 @@
 	<h1>METER</h1>
 	<DecibelNumber />
 	<SoundMeter />
-	<button class="main-button" on:click={toggleRecording}>{isRecording ? 'Stop' : 'Start'}</button>
+	<button class="main-button" on:click={handleClickButton}>{isRecording ? 'Stop' : 'Start'}</button>
 </main>
 
 <style>

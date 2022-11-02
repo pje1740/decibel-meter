@@ -1,14 +1,17 @@
+let stream: MediaStream;
+let audioContext: AudioContext;
+
 export const startRecording = async (onReceiveVolume: (volume: number) => void) => {
-	const stream = await createStream();
+	stream = await createStream();
 
-	const audioCtx = new window.AudioContext();
+	audioContext = new window.AudioContext();
 
-	const analyserNode = audioCtx.createAnalyser();
+	const analyserNode = audioContext.createAnalyser();
 	analyserNode.fftSize = 256;
 	const bufferLength = analyserNode.frequencyBinCount;
 	const dataArray = new Float32Array(bufferLength);
 
-	const input = audioCtx.createMediaStreamSource(stream);
+	const input = audioContext.createMediaStreamSource(stream);
 
 	input.connect(analyserNode);
 
@@ -36,4 +39,11 @@ const createStream = async () => {
 	});
 
 	return stream;
+};
+
+export const stopRecording = () => {
+	stream.getTracks().forEach((track) => {
+		track.stop();
+	});
+	audioContext.close();
 };
