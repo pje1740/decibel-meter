@@ -1,13 +1,18 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { startRecording } from '@/utils/decibel';
 	import { onMount } from 'svelte';
 
+	import { decibel } from '@/states/decibel';
 	export let volume = 0;
+
+	decibel.subscribe((value) => {
+		volume = value;
+	});
+
 	$: bottom = `${volume}px`;
 
 	const handleVolumeChange = (vol: number) => {
-		volume = vol;
+		decibel.update(() => vol);
 		console.log(volume);
 	};
 
