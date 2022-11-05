@@ -14,6 +14,7 @@
 		if (isRecording) {
 			stopRecording();
 			isRecording = false;
+			decibel.update(() => 0);
 		} else {
 			startRecording(handleVolumeChange);
 			isRecording = true;
